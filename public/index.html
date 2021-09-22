@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feijonts List</title>
+    <link rel="stylesheet" href="style.css"/>
+  </head>
+  <body>
+    <div id="app">
+      <form @submit.prevent="createFeijonts()">
+        <input type="text" placeholder="Feijao" v-model="form.text" />
+
+        <label class="checkbox-input">
+          {{ form.done ? 'Concluida' : 'Não concluida' }}
+          <input type="checkbox" v-model="form.done" :checked="form.done" />
+          <span class="checkmark"></span>
+        </label>
+
+        <button type="submit">Adicionar</button>
+      </form>
+
+      <ul class="feijonts">
+        <span class="feijonts-title">Feijonts</span>
+
+        <li :class="['Feijao',{ done: Feijao.done }]" v-for="Feijao in feijonts">
+          <label class="checkbox-input" @click="toogleFeijontsStatus(Feijao)">
+            <input type="checkbox" :checked="Feijao.done" />
+            <span class="checkmark"></span>
+          </label>
+          <span class="Feijao-text">{{Feijao.text}}</span>
+          <a class="Feijao-delete" @click="destroyFeijao(Feijao.id)"></a>
+        </li>
+      </ul>
+    </div>
+    <script src="./bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </body>
+</html>
